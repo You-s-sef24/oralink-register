@@ -8,16 +8,18 @@ export default function UsersProvider({ children }) {
     const [users, setUsers] = useState([]);
     const [isLoggedin, setIsLoggedin] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         const savedUsers = localStorage.getItem("users");
-        const savedLoginState = localStorage.getItem("isLoggedin");
+        const savedLogin = localStorage.getItem("isLoggedin");
         const savedCurrentUser = localStorage.getItem("currentUser");
 
         if (savedUsers) setUsers(JSON.parse(savedUsers));
-        if (savedLoginState) setIsLoggedin(JSON.parse(savedLoginState));
+        if (savedLogin) setIsLoggedin(JSON.parse(savedLogin));
         if (savedCurrentUser) setCurrentUser(JSON.parse(savedCurrentUser));
-
+        setLoading(false);
     }, []);
 
     useEffect(() => {
@@ -33,7 +35,7 @@ export default function UsersProvider({ children }) {
     }, [currentUser]);
 
     return (
-        <UsersContext.Provider value={{ users, setUsers, isLoggedin, setIsLoggedin, currentUser, setCurrentUser }}>
+        <UsersContext.Provider value={{ users, setUsers, isLoggedin, setIsLoggedin, currentUser, setCurrentUser, loading }}>
             {children}
         </UsersContext.Provider>
     );

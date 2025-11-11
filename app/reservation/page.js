@@ -7,17 +7,19 @@ import './reservation.css';
 import { useContext, useEffect } from "react";
 import { UsersContext } from "../Contexts/UsersContext";
 import { useRouter } from "next/navigation";
+import Loading from "../loading";
 
 export default function ReservationPage() {
-    const { isLoggedin } = useContext(UsersContext);
+    const { isLoggedin, loading } = useContext(UsersContext);
     const router = useRouter();
 
     useEffect(() => {
-        if (!isLoggedin) {
+        if (!loading && !isLoggedin) {
             router.push('/');
         }
-    }, [isLoggedin, router]);
+    }, [isLoggedin, loading, router]);
 
+    if (loading) return <Loading />;
     if (!isLoggedin) return null;
 
     return (

@@ -41,7 +41,9 @@ export default function LoginForm() {
     }
 
     return (
-        <form className="d-flex flex-column bg-white rounded shadow p-4" onSubmit={(e) => { handleSubmit(e) }}>
+        <form className="d-flex flex-column bg-white rounded shadow w-50 p-4" onSubmit={(e) => { handleSubmit(e) }}>
+            <h2 className="fw-bold text-primary text-center m-0">OraLink</h2>
+            <hr/>
             <h3 className="fw-bold text-center mb-4">Patient Portal Login</h3>
 
             <div className="mb-3">

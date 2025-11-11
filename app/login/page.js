@@ -19,14 +19,8 @@ export default function LoginPage() {
     if (isLoggedin) return null;
 
     return (
-        <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-            <div className="d-flex flex-column">
-                <div className="d-flex justify-content-center mb-2">
-                    <img src="/images/tooth.png" className="w-5" />
-                </div>
-                <h3 className="text-center fw-bold mb-4">OraLink</h3>
-                <LoginForm />
-            </div>
+        <div className="d-flex justify-content-center align-items-center bg-light vh-100">
+            <LoginForm />
         </div>
     );
 }

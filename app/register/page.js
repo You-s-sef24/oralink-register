@@ -19,7 +19,7 @@ export default function RegisterPage() {
     if (isLoggedin) return null;
 
     return (
-        <div className="d-flex align-items-center bg-light vh-100">
+        <div className="d-flex align-items-center bg-light py-5">
             <div className="container d-flex flex-column">
                 <div className="d-flex justify-content-between align-items-center">
                     <h5 className="fw-bold m-0">OraLink Registration</h5>
