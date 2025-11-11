@@ -1,7 +1,23 @@
+"use client";
+
 import Link from 'next/link';
 import '../globals.css';
+import { useContext, useEffect } from 'react';
+import { UsersContext } from '../Contexts/UsersContext';
+import { useRouter } from 'next/navigation';
 
 export default function WelcomeScreen() {
+    const { isLoggedin } = useContext(UsersContext);
+    const router = useRouter();
+
+    useEffect(() => {
+        if (isLoggedin) {
+            router.push('/dashboard');
+        }
+    }, [isLoggedin, router]);
+
+    if (isLoggedin) return null;
+
     return (
         <div className='bg-light'>
             <nav className="navbar p-2">

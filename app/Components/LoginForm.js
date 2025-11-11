@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UsersContext } from "../Contexts/UsersContext";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
     const [userData, setUserData] = useState({
@@ -9,14 +11,33 @@ export default function LoginForm() {
         password: ""
     });
 
+    const { users, setCurrentUser, setIsLoggedin } = useContext(UsersContext);
+    const router = useRouter();
+
     function handleSubmit(e) {
-        const isFilled = userData.email && userData.password;
         e.preventDefault();
-        if (isFilled) {
-            alert("Hello");
-        } else {
+        const isFilled = userData.email && userData.password;
+        const isFound = users.find((user) => user.email === userData.email);
+
+        if (!isFilled) {
             alert("Please fill empty fields");
+            return
         }
+
+        if (!isFound) {
+            alert("User not found");
+            return;
+        }
+
+        if (isFound.password !== userData.password) {
+            alert("Wrong password");
+            return;
+        }
+
+        alert(`Welcome, ${isFound.name}`);
+        setIsLoggedin(true);
+        setCurrentUser(isFound);
+        router.push('/dashboard');
     }
 
     return (
@@ -48,7 +69,7 @@ export default function LoginForm() {
                 <label htmlFor="password" className="form-label">Password</label>
                 <div className="input-group">
                     <div className="input-group-prepend">
-                        <span className="input-group-text" id="basic-addon1"><i class="bi bi-key"></i></span>
+                        <span className="input-group-text" id="basic-addon1"><i className="bi bi-key"></i></span>
                     </div>
                     <input
                         type="password"

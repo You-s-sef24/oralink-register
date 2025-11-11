@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UsersContext } from "../Contexts/UsersContext";
+import { useRouter } from "next/navigation";
 
 export default function RegistrationForm() {
     const [userInfo, setUserInfo] = useState({
@@ -12,15 +14,41 @@ export default function RegistrationForm() {
         password: ''
     });
 
+    const router = useRouter();
+    const { users, setUsers, setCurrentUser, setIsLoggedin } = useContext(UsersContext);
+
     function handleSubmit(e) {
         e.preventDefault();
         const isFilled = userInfo.name && userInfo.phone && userInfo.birthdate && userInfo.email && userInfo.nationalID && userInfo.password;
-        
-        if (isFilled) {
-            alert(`Hello , ${userInfo.name}`);
-        } else {
+        const isFound = users.find(
+            (user) => user.email === userInfo.email || user.nationalID === userInfo.nationalID
+        );
+
+        if (!isFilled) {
             alert("Please fill empty fields");
+            return;
         }
+
+        if (isFound) {
+            alert("User already exists!");
+            return;
+        }
+
+        setUsers([...users, userInfo]);
+        setIsLoggedin(true);
+        setCurrentUser(userInfo);
+        alert(`Welcome, ${userInfo.name}`);
+
+        setUserInfo({
+            name: '',
+            birthdate: '',
+            phone: '',
+            nationalID: '',
+            email: '',
+            password: ''
+        });
+
+        router.push('/dashboard');
     }
     return (
         <form className="p-4 bg-white shadow rounded" onSubmit={(e) => { handleSubmit(e) }}>

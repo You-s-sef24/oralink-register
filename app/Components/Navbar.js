@@ -1,12 +1,17 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { UsersContext } from "../Contexts/UsersContext";
 
 export default function Navbar() {
     const router = useRouter();
+    const { currentUser, setIsLoggedin, setCurrentUser } = useContext(UsersContext);
+    const firstName = (currentUser?.name)?.trim().split(" ")[0];
 
     function handleLogout() {
+        setCurrentUser(null);
+        setIsLoggedin(false);
         router.push('/');
     }
 
@@ -20,21 +25,21 @@ export default function Navbar() {
 
                 <div className="dropdown">
                     <button
-                        className="btn dropdown-btn"
+                        className="btn dropdown-btn d-flex align-items-center dropdown-toggle"
                         type="button"
                         id="triggerId"
                         data-bs-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false"
                     >
-                        <i className="h3 bi bi-person-circle"></i>
+                        Welcome, {firstName}
                     </button>
                     <div className="dropdown-menu" aria-labelledby="triggerId">
                         <button className="dropdown-item" onClick={() => { handleLogout() }}>Logout</button>
                     </div>
                 </div>
             </div>
-            <hr className="mt-0"/>
+            <hr className="mt-0" />
         </nav>
     );
 }

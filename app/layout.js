@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./globals.css";
 import BootstrapClient from "./Components/BootstrapClient";
-import CounterProvider from "./Contexts/Counter,";
+import UsersProvider from "./Contexts/UsersContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +24,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <CounterProvider>
+        <UsersProvider>
           {children}
-          <BootstrapClient />
-        </CounterProvider>
+        </UsersProvider>
+        <BootstrapClient />
       </body>
     </html>
   );

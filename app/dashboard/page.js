@@ -1,8 +1,24 @@
+"use client";
+
 import Link from 'next/link';
 import Navbar from '../Components/Navbar';
 import './dashboard.css';
+import { useContext, useEffect } from 'react';
+import { UsersContext } from '../Contexts/UsersContext';
+import { useRouter } from 'next/navigation';
 
 export default function DashboardPage() {
+    const { isLoggedin } = useContext(UsersContext);
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!isLoggedin) {
+            router.push('/');
+        }
+    }, [isLoggedin, router]);
+
+    if (!isLoggedin) return null;
+
     return (
         <div className='bg-light d-flex justify-content-center align-items-center vh-100'>
             <div className="container d-flex flex-column">
