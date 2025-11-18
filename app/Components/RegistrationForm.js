@@ -11,7 +11,9 @@ export default function RegistrationForm() {
         phone: '',
         nationalID: '',
         email: '',
-        password: ''
+        password: '',
+        address: '',
+        occupation: ''
     });
 
     const router = useRouter();
@@ -19,7 +21,8 @@ export default function RegistrationForm() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        const isFilled = userInfo.name && userInfo.phone && userInfo.birthdate && userInfo.email && userInfo.nationalID && userInfo.password;
+        const isFilled = userInfo.name.trim() && userInfo.phone.trim() && userInfo.birthdate.trim() && userInfo.email.trim() && userInfo.nationalID.trim() && userInfo.password.trim() && userInfo.address.trim() && userInfo.occupation.trim();
+
         const isFound = users.find(
             (user) => user.email === userInfo.email || user.nationalID === userInfo.nationalID
         );
@@ -34,9 +37,9 @@ export default function RegistrationForm() {
             return;
         }
 
-        setUsers([...users, userInfo]);
+        setUsers([...users, { ...userInfo }]);
+        setCurrentUser({ ...userInfo });
         setIsLoggedin(true);
-        setCurrentUser(userInfo);
         alert(`Welcome, ${userInfo.name}`);
 
         setUserInfo({
@@ -45,7 +48,9 @@ export default function RegistrationForm() {
             phone: '',
             nationalID: '',
             email: '',
-            password: ''
+            password: '',
+            address: '',
+            occupation: ''
         });
 
         router.push('/dashboard');
@@ -107,6 +112,34 @@ export default function RegistrationForm() {
                     value={userInfo.nationalID}
                     onChange={(e) => {
                         setUserInfo({ ...userInfo, nationalID: e.target.value });
+                    }}
+                />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="occupation" className="form-label">Occupation</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="occupation"
+                    aria-describedby="occupationHelpId"
+                    required
+                    value={userInfo.occupation}
+                    onChange={(e) => {
+                        setUserInfo({ ...userInfo, occupation: e.target.value });
+                    }}
+                />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="address" className="form-label">Address</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="address"
+                    aria-describedby="addressHelpId"
+                    required
+                    value={userInfo.address}
+                    onChange={(e) => {
+                        setUserInfo({ ...userInfo, address: e.target.value });
                     }}
                 />
             </div>

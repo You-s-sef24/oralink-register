@@ -10,13 +10,13 @@ export default function WelcomeScreen() {
     const { isLoggedin } = useContext(UsersContext);
     const router = useRouter();
 
-    useEffect(() => {
-        if (isLoggedin) {
-            router.push('/dashboard');
-        }
-    }, [isLoggedin, router]);
+    // useEffect(() => {
+    //     if (isLoggedin) {
+    //         router.push('/dashboard');
+    //     }
+    // }, [isLoggedin, router]);
 
-    if (isLoggedin) return null;
+    // if (isLoggedin) return null;
 
     return (
         <div className='bg-light'>
@@ -30,8 +30,8 @@ export default function WelcomeScreen() {
                         <h1 className="text-center fw-bold">Welcome to Our Online Portal</h1>
                         <p className="text-center text-muted">Register as a new patient or log in to manage your appointments.</p>
                         <div className="d-flex justify-content-center gap-1">
-                            <Link href={'/register'} className="btn btn-success">Register</Link>
-                            <Link href={'/login'} className="btn btn-primary">Login</Link>
+                            <Link href={'/register'} className="btn btn-lg btn-success">Register</Link>
+                            <Link href={'/login'} className="btn btn-lg btn-primary">Login</Link>
                         </div>
                     </div>
                     <div className="col">

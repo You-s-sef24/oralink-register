@@ -16,9 +16,9 @@ export default function UsersProvider({ children }) {
         const savedLogin = localStorage.getItem("isLoggedin");
         const savedCurrentUser = localStorage.getItem("currentUser");
 
-        if (savedUsers) setUsers(JSON.parse(savedUsers));
-        if (savedLogin) setIsLoggedin(JSON.parse(savedLogin));
-        if (savedCurrentUser) setCurrentUser(JSON.parse(savedCurrentUser));
+        if (savedUsers !== null) setUsers(JSON.parse(savedUsers));
+        if (savedLogin !== null) setIsLoggedin(JSON.parse(savedLogin));
+        if (savedCurrentUser !== null) setCurrentUser(JSON.parse(savedCurrentUser));
         setLoading(false);
     }, []);
 

@@ -11,3 +11,17 @@
   bottom: 0;
   width: 100%;
 }
+
+/* 
+.transition-all {
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar-show {
+  transform: translateX(0);
+}
+
+.sidebar-hide {
+  transform: translateX(-250px); 
+}
+*/

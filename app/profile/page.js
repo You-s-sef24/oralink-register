@@ -1,12 +1,12 @@
 "use client";
 
-import './dashboard.css';
-import { useContext, useEffect } from 'react';
-import { UsersContext } from '../Contexts/UsersContext';
-import { useRouter } from 'next/navigation';
-import Navbar from '../Components/Navbar';
+import { useContext, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { UsersContext } from "../Contexts/UsersContext";
+import ProfilePage from "../Components/ProfilePage";
+import Navbar from "../Components/Navbar";
 
-export default function DashboardPage() {
+export default function Profile() {
     const { isLoggedin } = useContext(UsersContext);
     const router = useRouter();
 
@@ -19,8 +19,9 @@ export default function DashboardPage() {
     // if (!isLoggedin) return null;
 
     return (
-        <div className="d-flex">
+        <div>
             <Navbar />
+            <ProfilePage />
         </div>
     );
 }
