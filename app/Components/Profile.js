@@ -3,7 +3,7 @@
 import { useContext, useState } from "react";
 import { UsersContext } from "../Contexts/UsersContext";
 
-export default function ProfilePage() {
+export default function Profile() {
     const { currentUser, setCurrentUser } = useContext(UsersContext);
     const [editing, setEditing] = useState(false);
     const [editPass, setEditPass] = useState(false);

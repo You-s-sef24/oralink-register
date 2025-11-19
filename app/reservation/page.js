@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import DownloadBtn from "../Components/DownloadBtn";
 import Ticket from "../Components/Ticket";
 import './reservation.css';
 import { useContext, useEffect } from "react";
@@ -13,28 +12,18 @@ export default function ReservationPage() {
     const { isLoggedin, loading } = useContext(UsersContext);
     const router = useRouter();
 
-    useEffect(() => {
-        if (!loading && !isLoggedin) {
-            router.push('/');
-        }
-    }, [isLoggedin, loading, router]);
+    // useEffect(() => {
+    //     if (!loading && !isLoggedin) {
+    //         router.push('/');
+    //     }
+    // }, [isLoggedin, loading, router]);
 
-    if (loading) return <Loading />;
-    if (!isLoggedin) return null;
+    // if (loading) return <Loading />;
+    // if (!isLoggedin) return null;
 
     return (
-        <div className="d-flex justify-content-center align-items-center vh-100">
-            <div className="d-flex flex-column text-center">
-                <nav className="breadcrumb">
-                    <Link className="breadcrumb-item" href="/dashboard">Dashboard</Link>
-                    <span className="breadcrumb-item active" aria-current="page">Reservation Ticket</span>
-                </nav>
+        <div>
 
-                <h1>Your Appointment is Confirmed!</h1>
-                <p>Please see your details below.</p>
-                <Ticket />
-                <DownloadBtn />
-            </div>
         </div>
     );
 }

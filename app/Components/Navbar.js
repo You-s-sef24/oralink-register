@@ -20,7 +20,7 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="navbar navbar-light bg-light fixed-top">
+        <nav className="navbar navbar-light bg-white fixed-top">
             <div className="container-fluid d-flex gap-2 align-items-center justify-content-start">
                 <button
                     className="navbar-toggler"

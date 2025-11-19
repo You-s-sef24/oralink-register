@@ -5,6 +5,7 @@ import { useContext, useEffect } from 'react';
 import { UsersContext } from '../Contexts/UsersContext';
 import { useRouter } from 'next/navigation';
 import Navbar from '../Components/Navbar';
+import Dashboard from '../Components/Dashboard';
 
 export default function DashboardPage() {
     const { isLoggedin } = useContext(UsersContext);
@@ -21,6 +22,7 @@ export default function DashboardPage() {
     return (
         <div className="d-flex">
             <Navbar />
+            <Dashboard />
         </div>
     );
 }

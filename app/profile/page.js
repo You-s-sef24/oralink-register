@@ -3,10 +3,10 @@
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { UsersContext } from "../Contexts/UsersContext";
-import ProfilePage from "../Components/ProfilePage";
+import Profile from "../Components/Profile";
 import Navbar from "../Components/Navbar";
 
-export default function Profile() {
+export default function ProfilePage() {
     const { isLoggedin } = useContext(UsersContext);
     const router = useRouter();
 
@@ -21,7 +21,7 @@ export default function Profile() {
     return (
         <div>
             <Navbar />
-            <ProfilePage />
+            <Profile />
         </div>
     );
 }
