@@ -2,25 +2,27 @@
 
 import { useContext } from "react";
 import { UsersContext } from "../Contexts/UsersContext";
-import html2pdf from "html2pdf.js";
 import Notice from "./Notice";
 
 export default function ReservedTicket() {
     const { currentUser } = useContext(UsersContext);
 
     function handleDownload() {
-        const ticket = document.getElementById("ticket");
+        import("html2pdf.js").then((html2pdf) => {
+            const ticket = document.getElementById("ticket");
 
-        const options = {
-            margin: 10,
-            filename: "ticket.pdf",
-            image: { type: "jpeg", quality: 1 },
-            html2canvas: { scale: 3 },
-            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
-        };
+            const options = {
+                margin: 10,
+                filename: "ticket.pdf",
+                image: { type: "jpeg", quality: 1 },
+                html2canvas: { scale: 3 },
+                jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+            };
 
-        html2pdf().set(options).from(ticket).save();
+            html2pdf.default().set(options).from(ticket).save();
+        });
     }
+
 
     return (
         <div id="ticket" className="shadow rounded overflow-hidden w-100">
