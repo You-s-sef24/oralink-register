@@ -2,24 +2,26 @@
 
 import { useContext } from "react";
 import { UsersContext } from "../Contexts/UsersContext";
-import html2pdf from "html2pdf.js";
 
 export default function Ticket({ id }) {
     const { currentUser } = useContext(UsersContext);
 
     function handleDownload() {
-        const ticket = document.getElementById("ticket");
+        import("html2pdf.js").then((html2pdf) => {
+            const ticket = document.getElementById("ticket");
 
-        const options = {
-            margin: 10,
-            filename: "ticket.pdf",
-            image: { type: "jpeg", quality: 1 },
-            html2canvas: { scale: 3 },
-            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
-        };
+            const options = {
+                margin: 10,
+                filename: "ticket.pdf",
+                image: { type: "jpeg", quality: 1 },
+                html2canvas: { scale: 3 },
+                jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+            };
 
-        html2pdf().set(options).from(ticket).save();
+            html2pdf.default().set(options).from(ticket).save();
+        });
     }
+
 
 
     return (
@@ -72,7 +74,7 @@ export default function Ticket({ id }) {
                     </div>
                 </div>
                 <div className="col-12 text-center bg-white mb-3">
-                    <button className="btn btn-primary mt-4" onClick={ handleDownload }> <i className="bi bi-download"></i> Download / Save Ticket</button>
+                    <button className="btn btn-primary mt-4" onClick={handleDownload}> <i className="bi bi-download"></i> Download / Save Ticket</button>
                 </div>
             </div>
         </div>

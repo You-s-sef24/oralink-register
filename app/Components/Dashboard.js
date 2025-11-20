@@ -33,7 +33,12 @@ export default function Dashboard() {
         }
 
         const newAppointmentsList = [...currentUser.appointments];
-        const lastAppointment = { date: tomorrowStr, time: '', status: 'Pending', queueNumber: QueueNumber };
+        const lastAppointment = {
+            date: tomorrowStr,
+            time: '',
+            status: 'Pending',
+            queueNumber: QueueNumber
+        };
         newAppointmentsList.push(lastAppointment);
         setCurrentUser({ ...currentUser, appointments: newAppointmentsList, lastAppointment: lastAppointment });
         router.push('/reservation');
