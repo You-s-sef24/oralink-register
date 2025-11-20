@@ -14,20 +14,7 @@ export default function RegistrationForm() {
         password: '',
         address: '',
         occupation: '',
-        appointments: [
-            {
-                id: 1,
-                date: '2024-07-15',
-                time: '10:00 AM',
-                status: 'Completed'
-            },
-            {
-                id: 2,
-                date: '2024-08-20',
-                time: '02:00 PM',
-                status: 'Pending'
-            }
-        ]
+        appointments: []
     });
 
     const router = useRouter();

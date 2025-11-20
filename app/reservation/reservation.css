@@ -1,22 +1,13 @@
-* {
-  -webkit-print-color-adjust: exact !important;
-  print-color-adjust: exact !important;
+.Link:hover {
+  text-decoration: underline !important;
 }
 
-@media print {
-  body * {
-    visibility: hidden;
-  }
+.bg-teal{
+  background-color: #F0FDF4;
+  border: #BBF7D0 solid 1px
+}
 
-  #ticket,
-  #ticket * {
-    visibility: visible;
-  }
-
-  #ticket {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-  }
+.bg-warning-50{
+  background-color: #fff3cd;
+  border: #f5de94 solid 1px
 }

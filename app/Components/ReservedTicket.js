@@ -3,10 +3,10 @@
 import { useContext } from "react";
 import { UsersContext } from "../Contexts/UsersContext";
 import html2pdf from "html2pdf.js";
+import Notice from "./Notice";
 
-export default function Ticket({ id }) {
+export default function ReservedTicket() {
     const { currentUser } = useContext(UsersContext);
-    const appointment = currentUser?.appointments.find(app => app.id === id);
 
     function handleDownload() {
         const ticket = document.getElementById("ticket");
@@ -22,6 +22,7 @@ export default function Ticket({ id }) {
         html2pdf().set(options).from(ticket).save();
     }
 
+    const appointment = currentUser.appointments[0];
 
     return (
         <div id="ticket" className="shadow rounded overflow-hidden w-100">
@@ -29,7 +30,7 @@ export default function Ticket({ id }) {
                 <p className="text-center">Your Queue Number</p>
                 <h1 className="text-center fw-bold">{appointment.queueNumber}</h1>
             </div>
-            <div className="row align-items-center">
+            <div className="row align-items-center bg-white p-3">
                 <div className="col-12 col-md-6 bg-white px-4 my-2">
                     <div className="d-flex align-items-center gap-2">
                         <span className="bg-primary text-white rounded p-2">
@@ -58,7 +59,7 @@ export default function Ticket({ id }) {
                         </span>
                         <div className="d-flex flex-column">
                             <small className="text-start text-primary">Appointment Date</small>
-                            <p className="text-start fw-bold m-0">{appointment?.date}</p>
+                            <p className="text-start fw-bold m-0">{appointment.date}</p>
                         </div>
                     </div>
                 </div>
@@ -68,12 +69,14 @@ export default function Ticket({ id }) {
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock text-[#0d6efd]" aria-hidden="true"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg>                        </span>
                         <div className="d-flex flex-column">
                             <small className="text-start text-primary">Time</small>
-                            <p className="fw-bold m-0">{appointment?.time}</p>
+                            <p className="fw-bold m-0">10:12 AM</p>
                         </div>
                     </div>
                 </div>
+                <hr />
+                <Notice />
                 <div className="col-12 text-center bg-white mb-3">
-                    <button className="btn btn-primary mt-4" onClick={ handleDownload }> <i className="bi bi-download"></i> Download / Save Ticket</button>
+                    <button className="btn btn-primary mt-4" onClick={handleDownload}> <i className="bi bi-download"></i> Download / Save Ticket</button>
                 </div>
             </div>
         </div>

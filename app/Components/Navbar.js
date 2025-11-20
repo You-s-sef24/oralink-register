@@ -1,6 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { UsersContext } from "../Contexts/UsersContext";
 import '../globals.css';
 
