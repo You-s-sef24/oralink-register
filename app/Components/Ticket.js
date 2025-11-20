@@ -6,7 +6,6 @@ import html2pdf from "html2pdf.js";
 
 export default function Ticket({ id }) {
     const { currentUser } = useContext(UsersContext);
-    const appointment = currentUser?.appointments.find(app => app.id === id);
 
     function handleDownload() {
         const ticket = document.getElementById("ticket");
@@ -27,7 +26,7 @@ export default function Ticket({ id }) {
         <div id="ticket" className="shadow rounded overflow-hidden w-100">
             <div className="bg-primary text-white p-4">
                 <p className="text-center">Your Queue Number</p>
-                <h1 className="text-center fw-bold">{appointment.queueNumber}</h1>
+                <h1 className="text-center fw-bold">{currentUser?.lastAppointment.queueNumber}</h1>
             </div>
             <div className="row align-items-center">
                 <div className="col-12 col-md-6 bg-white px-4 my-2">
@@ -58,7 +57,7 @@ export default function Ticket({ id }) {
                         </span>
                         <div className="d-flex flex-column">
                             <small className="text-start text-primary">Appointment Date</small>
-                            <p className="text-start fw-bold m-0">{appointment?.date}</p>
+                            <p className="text-start fw-bold m-0">{currentUser?.lastAppointment.date}</p>
                         </div>
                     </div>
                 </div>
@@ -68,7 +67,7 @@ export default function Ticket({ id }) {
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock text-[#0d6efd]" aria-hidden="true"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg>                        </span>
                         <div className="d-flex flex-column">
                             <small className="text-start text-primary">Time</small>
-                            <p className="fw-bold m-0">{appointment?.time}</p>
+                            <p className="fw-bold m-0">{currentUser?.lastAppointment.time}</p>
                         </div>
                     </div>
                 </div>

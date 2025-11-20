@@ -16,16 +16,9 @@ body{
   width: 100%;
 }
 
-/* 
-.transition-all {
-  transition: all 0.3s ease-in-out;
+.toast{
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1055;
 }
-
-.sidebar-show {
-  transform: translateX(0);
-}
-
-.sidebar-hide {
-  transform: translateX(-250px); 
-}
-*/

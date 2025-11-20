@@ -1,6 +1,6 @@
 "use client";
 
-const { createContext, useState, useEffect } = require("react");
+import { createContext, useState, useEffect } from "react";
 
 export const UsersContext = createContext();
 
@@ -10,15 +10,15 @@ export default function UsersProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-
     useEffect(() => {
-        const savedUsers = localStorage.getItem("users");
-        const savedLogin = localStorage.getItem("isLoggedin");
-        const savedCurrentUser = localStorage.getItem("currentUser");
+        const storedUsers = localStorage.getItem("users");
+        const storedCurrentUser = localStorage.getItem("currentUser");
+        const storedIsLoggedin = localStorage.getItem("isLoggedin");
 
-        if (savedUsers !== null) setUsers(JSON.parse(savedUsers));
-        if (savedLogin !== null) setIsLoggedin(JSON.parse(savedLogin));
-        if (savedCurrentUser !== null) setCurrentUser(JSON.parse(savedCurrentUser));
+        if (storedUsers) setUsers(JSON.parse(storedUsers));
+        if (storedCurrentUser) setCurrentUser(JSON.parse(storedCurrentUser));
+        if (storedIsLoggedin) setIsLoggedin(JSON.parse(storedIsLoggedin));
+
         setLoading(false);
     }, []);
 
@@ -31,7 +31,19 @@ export default function UsersProvider({ children }) {
     }, [isLoggedin]);
 
     useEffect(() => {
-        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        if (currentUser) {
+            localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
+            const index = users.findIndex(user => user.id === currentUser.id);
+            if (index !== -1) {
+                const newUsers = [...users];
+                newUsers[index] = currentUser;
+                setUsers(newUsers);
+            }
+            
+        } else {
+            localStorage.removeItem("currentUser");
+        }
     }, [currentUser]);
 
     return (

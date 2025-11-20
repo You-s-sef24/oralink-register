@@ -4,13 +4,15 @@ import Link from "next/link";
 import { useContext, useState } from "react";
 import { UsersContext } from "../Contexts/UsersContext";
 import { useRouter } from "next/navigation";
+import Toast from "./Toast";
 
 export default function LoginForm() {
     const [userData, setUserData] = useState({
         email: "",
         password: ""
     });
-
+    const [showToast, setShowToast] = useState(false);
+    const [msg, setMsg] = useState('');
     const { users, setCurrentUser, setIsLoggedin } = useContext(UsersContext);
     const router = useRouter();
 
@@ -20,21 +22,24 @@ export default function LoginForm() {
         const isFound = users.find((user) => user.email === userData.email);
 
         if (!isFilled) {
-            alert("Please fill empty fields");
+            setShowToast(true);
+            setMsg("Please fill empty fields");
             return
         }
 
         if (!isFound) {
-            alert("User not found");
+            setShowToast(true);
+            setMsg("User not found");
             return;
         }
 
         if (isFound.password !== userData.password) {
-            alert("Wrong password");
+            setShowToast(true);
+            setMsg("Wrong password");
             return;
         }
-
-        alert(`Welcome, ${isFound.name}`);
+        setShowToast(true);
+        setMsg(`Welcome, ${isFound.name}`);
         setIsLoggedin(true);
         setCurrentUser(isFound);
         router.push('/dashboard');
@@ -43,7 +48,7 @@ export default function LoginForm() {
     return (
         <form className="d-flex flex-column bg-white rounded shadow w-50 p-4" onSubmit={(e) => { handleSubmit(e) }}>
             <h2 className="fw-bold text-primary text-center m-0">OraLink</h2>
-            <hr/>
+            <hr />
             <h3 className="fw-bold text-center mb-4">Patient Portal Login</h3>
 
             <div className="mb-3">
@@ -90,6 +95,7 @@ export default function LoginForm() {
 
             <button type="submit" className="btn btn-primary w-100 mb-3">Login</button>
             <p className="text-center m-0">Don&apos;t have an account? <Link className="text-decoration-none text-primary" href={'/register'}>Register</Link></p>
+            {showToast && <Toast onClose={() => { setShowToast(false) }} msg={msg} />}
         </form>
     );
 }

@@ -3,6 +3,7 @@
 import { useContext, useState } from "react";
 import { UsersContext } from "../Contexts/UsersContext";
 import { useRouter } from "next/navigation";
+import Toast from "./Toast";
 
 export default function RegistrationForm() {
     const [userInfo, setUserInfo] = useState({
@@ -14,8 +15,11 @@ export default function RegistrationForm() {
         password: '',
         address: '',
         occupation: '',
-        appointments: []
+        appointments: [],
+        lastAppointment: ''
     });
+    const [showToast, setShowToast] = useState(false);
+    const [msg, setMsg] = useState('');
 
     const router = useRouter();
     const { users, setUsers, setCurrentUser, setIsLoggedin } = useContext(UsersContext);
@@ -29,19 +33,22 @@ export default function RegistrationForm() {
         );
 
         if (!isFilled) {
-            alert("Please fill empty fields");
+            setShowToast(true);
+            setMsg("Please fill empty fields");
             return;
         }
 
         if (isFound) {
-            alert("User already exists!");
+            setShowToast(true);
+            setMsg("User already exists!");
             return;
         }
 
         setUsers([...users, { ...userInfo }]);
         setCurrentUser({ ...userInfo });
         setIsLoggedin(true);
-        alert(`Welcome, ${userInfo.name}`);
+        setShowToast(true);
+        setMsg(`Welcome, ${userInfo.name}`);
 
         setUserInfo({
             name: '',
@@ -56,6 +63,7 @@ export default function RegistrationForm() {
 
         router.push('/dashboard');
     }
+    
     return (
         <form className="p-4 bg-white shadow rounded" onSubmit={(e) => { handleSubmit(e) }}>
             <div className="mb-3">
@@ -175,6 +183,8 @@ export default function RegistrationForm() {
                 </div>
             </div>
             <button type="submit" className="btn btn-primary w-100">Submit</button>
+
+            {showToast && <Toast onClose={() => { setShowToast(false) }} msg={msg} />}
         </form>
     );
 }

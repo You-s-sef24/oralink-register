@@ -22,13 +22,11 @@ export default function ReservedTicket() {
         html2pdf().set(options).from(ticket).save();
     }
 
-    const appointment = currentUser.appointments[0];
-
     return (
         <div id="ticket" className="shadow rounded overflow-hidden w-100">
             <div className="bg-primary text-white p-4">
                 <p className="text-center">Your Queue Number</p>
-                <h1 className="text-center fw-bold">{appointment.queueNumber}</h1>
+                <h1 className="text-center fw-bold">{currentUser?.lastAppointment.queueNumber}</h1>
             </div>
             <div className="row align-items-center bg-white p-3">
                 <div className="col-12 col-md-6 bg-white px-4 my-2">
@@ -59,7 +57,7 @@ export default function ReservedTicket() {
                         </span>
                         <div className="d-flex flex-column">
                             <small className="text-start text-primary">Appointment Date</small>
-                            <p className="text-start fw-bold m-0">{appointment.date}</p>
+                            <p className="text-start fw-bold m-0">{currentUser?.lastAppointment.date}</p>
                         </div>
                     </div>
                 </div>
@@ -69,7 +67,7 @@ export default function ReservedTicket() {
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock text-[#0d6efd]" aria-hidden="true"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg>                        </span>
                         <div className="d-flex flex-column">
                             <small className="text-start text-primary">Time</small>
-                            <p className="fw-bold m-0">10:12 AM</p>
+                            <p className="fw-bold m-0">{currentUser?.lastAppointment.time}</p>
                         </div>
                     </div>
                 </div>

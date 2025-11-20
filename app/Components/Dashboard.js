@@ -33,8 +33,9 @@ export default function Dashboard() {
         }
 
         const newAppointmentsList = [...currentUser.appointments];
-        newAppointmentsList.unshift({ date: tomorrowStr, time: '', status: 'Pending', queueNumber: QueueNumber });
-        setCurrentUser({ ...currentUser, appointments: newAppointmentsList });
+        const lastAppointment = { date: tomorrowStr, time: '', status: 'Pending', queueNumber: QueueNumber };
+        newAppointmentsList.push(lastAppointment);
+        setCurrentUser({ ...currentUser, appointments: newAppointmentsList, lastAppointment: lastAppointment });
         router.push('/reservation');
     }
 
@@ -68,7 +69,7 @@ export default function Dashboard() {
                 <hr />
                 {appointments}
             </div>
-            {showToast && <Toast onClose={() => { setShowToast(false) }} msg={"You already have an appointment for tomorrow."}/>}
+            {showToast && <Toast onClose={() => { setShowToast(false) }} msg={"You already have an appointment for tomorrow."} />}
         </div >
     );
 }

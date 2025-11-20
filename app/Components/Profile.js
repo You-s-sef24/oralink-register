@@ -2,8 +2,11 @@
 
 import { useContext, useState } from "react";
 import { UsersContext } from "../Contexts/UsersContext";
+import Toast from "./Toast";
 
 export default function Profile() {
+    const [showToast, setShowToast] = useState(false);
+    const [msg, setMsg] = useState('');
     const { currentUser, setCurrentUser } = useContext(UsersContext);
     const [editing, setEditing] = useState(false);
     const [editPass, setEditPass] = useState(false);
@@ -18,7 +21,7 @@ export default function Profile() {
         address: currentUser?.address,
         occupation: currentUser?.occupation
     });
-    const isEmpty = data.address.trim() === '' || data.name.trim() === '' || data.email.trim() === '' || data.birthdate.trim() === '' || data.nationalID.trim() === '' && data.phone.trim() === '' || data.occupation.trim() === '';
+    const isEmpty = data.address?.trim() === '' || data.name?.trim() === '' || data.email?.trim() === '' || data.birthdate?.trim() === '' || data.nationalID?.trim() === '' && data.phone?.trim() === '' || data.occupation?.trim() === '';
 
     function handleSave() {
         setCurrentUser({ ...currentUser, ...data });
@@ -26,16 +29,19 @@ export default function Profile() {
     }
     function handleSavePass() {
         if (oldPass !== currentUser.password) {
-            alert(`Wrong password`);
+            setShowToast(true);
+            setMsg(`Wrong password`);
             return;
         }
         if (newPass.trim('') === '') {
-            alert("Please fill empty fields");
+            setShowToast(true);
+            setMsg("Please fill empty fields");
             return;
         }
 
         setCurrentUser({ ...currentUser, password: newPass });
-        alert("Password Changed Successfully!");
+        setShowToast(true);
+        setMsg("Password Changed Successfully!");
 
         setOldPass('');
         setNewPass('');
@@ -249,6 +255,7 @@ export default function Profile() {
                 )
                 }
             </div >
+            {showToast && <Toast onClose={() => { setShowToast(false) }} msg={msg} />}
         </div >
     );
 }
