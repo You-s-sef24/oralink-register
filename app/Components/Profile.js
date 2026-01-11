@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UsersContext } from "../Contexts/UsersContext";
 import Toast from "./Toast";
 
@@ -21,7 +21,28 @@ export default function Profile() {
         address: currentUser?.address,
         occupation: currentUser?.occupation
     });
-    const isEmpty = data.address?.trim() === '' || data.name?.trim() === '' || data.email?.trim() === '' || data.birthdate?.trim() === '' || data.nationalID?.trim() === '' && data.phone?.trim() === '' || data.occupation?.trim() === '';
+    useEffect(() => {
+        if (currentUser) {
+            setData({
+                name: currentUser.name || '',
+                birthdate: currentUser.birthdate || '',
+                phone: currentUser.phone || '',
+                nationalID: currentUser.nationalID || '',
+                email: currentUser.email || '',
+                address: currentUser.address || '',
+                occupation: currentUser.occupation || ''
+            });
+        }
+    }, [currentUser]);
+
+    const isEmpty =
+        data.address?.trim() === '' ||
+        data.name?.trim() === '' ||
+        data.email?.trim() === '' ||
+        data.birthdate?.trim() === '' ||
+        data.nationalID?.trim() === '' ||
+        data.phone?.trim() === '' ||
+        data.occupation?.trim() === '';
 
     function handleSave() {
         setCurrentUser({ ...currentUser, ...data });
@@ -82,7 +103,7 @@ export default function Profile() {
                                 </div>
                                 <div>
                                     <label className="text-muted">Full Name</label>
-                                    <input className="form-control" type="text" value={data.name} onChange={(e) => { setData({ ...data, name: e.target.value }) }} required />
+                                    <input className="form-control" type="text" value={data?.name} onChange={(e) => { setData({ ...data, name: e.target.value }) }} required />
                                 </div>
                             </div>
 

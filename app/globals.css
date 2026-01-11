@@ -1,4 +1,4 @@
-body{
+body {
   background-color: #f8f9fa;
 }
 
@@ -16,9 +16,64 @@ body{
   width: 100%;
 }
 
-.toast{
+.toast {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
   z-index: 1055;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Arvo:wght@700&display=swap');
+
+  .logo-container {
+    display: inline-flex;
+    align-items: flex-end;
+    font-family: 'Arvo', serif;
+    font-size: 40px; /* Small and crisp */
+    font-weight: 700;
+    color: #000;
+    line-height: 1;
+    background: #fff;
+    padding: 10px;
+  }
+
+  /* The Blue O Shape */
+  .o-icon {
+    width: 34px;
+    height: 30px;
+    background-color: #0d3b85;
+    margin-right: 6px;
+    margin-bottom: 5px;
+    /* Irregular organic radius */
+    border-radius: 40% 60% 45% 55% / 55% 45% 62% 42%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .o-icon::after {
+    content: '';
+    width: 14px;
+    height: 12px;
+    background: white;
+    border-radius: 45%;
+    transform: rotate(-10deg);
+  }
+
+  .ra-text {
+    margin-right: 2px;
+    letter-spacing: -1px;
+  }
+
+  /* The precise Li Graphic */
+  .li-svg {
+    width: 38px;
+    height: 48px;
+    margin-right: 2px;
+    fill: #0d3b85;
+  }
+
+  .nk-text {
+    margin-left: -1px;
+    letter-spacing: -2px;
+  }

@@ -21,7 +21,7 @@ export default function WelcomeScreen() {
     return (
         <div className='bg-light'>
             <nav className="navbar p-2">
-                <h4 className="fw-bold navbar-brand m-0">OraLink</h4>
+                <img className="navbar-brand w-25" src="/OraLink (1).png" alt="OraLink" />
             </nav>
 
             <div className="container d-flex justify-content-center align-items-center vh-100">

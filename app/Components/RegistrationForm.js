@@ -3,7 +3,6 @@
 import { useContext, useState } from "react";
 import { UsersContext } from "../Contexts/UsersContext";
 import { useRouter } from "next/navigation";
-import Toast from "./Toast";
 
 export default function RegistrationForm() {
     const [userInfo, setUserInfo] = useState({
@@ -18,7 +17,6 @@ export default function RegistrationForm() {
         appointments: [],
         lastAppointment: ''
     });
-    const [showToast, setShowToast] = useState(false);
     const [msg, setMsg] = useState('');
 
     const router = useRouter();
@@ -33,21 +31,33 @@ export default function RegistrationForm() {
         );
 
         if (!isFilled) {
-            setShowToast(true);
             setMsg("Please fill empty fields");
             return;
         }
 
         if (isFound) {
-            setShowToast(true);
             setMsg("User already exists!");
+            return;
+        }
+
+        if (userInfo.phone.length !== 11 || !userInfo.phone.startsWith("01") || isNaN(userInfo.phone)) {
+            setMsg("Invalid Phone Number!");
+            return;
+        }
+
+        if (userInfo.nationalID.length !== 14 || isNaN(userInfo.nationalID)) {
+            setMsg("Invalid National ID!");
+            return;
+        }
+
+        if (userInfo.password.length < 8) {
+            setMsg("Weak Password! Password must be at least 8 characters long.");
             return;
         }
 
         setUsers([...users, { ...userInfo }]);
         setCurrentUser({ ...userInfo });
         setIsLoggedin(true);
-        setShowToast(true);
         setMsg(`Welcome, ${userInfo.name}`);
 
         setUserInfo({
@@ -63,9 +73,24 @@ export default function RegistrationForm() {
 
         router.push('/dashboard');
     }
-    
+
     return (
         <form className="p-4 bg-white shadow rounded" onSubmit={(e) => { handleSubmit(e) }}>
+            {msg !== '' ? (
+                <div
+                    className="alert alert-danger alert-dismissible fade show"
+                    role="alert"
+                >
+                    <button
+                        type="button"
+                        className="btn-close"
+                        onClick={() => setMsg('')}
+                        aria-label="Close"
+                    ></button>
+                    <strong>{msg}</strong>
+                </div>
+            ) : null}
+
             <div className="mb-3">
                 <label htmlFor="name" className="form-label">Full Name</label>
                 <input
@@ -101,6 +126,9 @@ export default function RegistrationForm() {
                         type="tel"
                         className="form-control w-100"
                         id="phone"
+                        pattern="01[0-9]{9}"
+                        maxLength={11}
+                        inputMode="numeric"
                         aria-describedby="phoneHelpId"
                         required
                         value={userInfo.phone}
@@ -116,6 +144,8 @@ export default function RegistrationForm() {
                     type="text"
                     className="form-control"
                     id="id"
+                    maxLength={14}
+                    inputMode="numeric"
                     aria-describedby="idHelpId"
                     required
                     value={userInfo.nationalID}
@@ -173,6 +203,7 @@ export default function RegistrationForm() {
                         type="password"
                         className="form-control"
                         id="password"
+                        minLength={8}
                         aria-describedby="passwordHelpId"
                         required
                         value={userInfo.password}
@@ -183,8 +214,6 @@ export default function RegistrationForm() {
                 </div>
             </div>
             <button type="submit" className="btn btn-primary w-100">Submit</button>
-
-            {showToast && <Toast onClose={() => { setShowToast(false) }} msg={msg} />}
         </form>
     );
 }
